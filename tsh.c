@@ -259,6 +259,12 @@ int builtin_cmd(char **argv)
 {
 	if(strcmp("quit", argv[0]) == 0){
 		exit(0);
+	} else if(strcmp("fg", argv[0]) == 0){
+		return 1;
+	} else if(strcmp("bg", argv[0]) == 0){
+		return 1;
+	} else if(strcmp("jobs", argv[0]) == 0){
+		return 1;
 	}
     return 0;     /* not a builtin command */
 }
