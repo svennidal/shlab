@@ -8,3 +8,11 @@ process var að deyja, og eyði svo jobbinu með delete(jobs, pid)
 7
 Þurfti ekki að gera neitt til að fá nr 7 til að virka
 
+8
+Þarna þurfti að fá SIFSTP til að virka. Það eru btw til global fastar sem heita 
+job states, það eru FG, BG og ST sem eru með value 1, 2 og 3 og standa fyrir
+forground, background og stopped. Við skrifum sigstp_handler alveg eins og
+sigint_handler, nema bara að í staðinn fyrir að delete'a job'inu að þá breytym 
+við state'inu á því í stopped með getjobpid(jobs, pid)->state = ST. Köllum svo á
+kill(-pid, sig) þar sem sig er núna 20 sem stendur fyrir stop signal from terminal
+og svo prentum við út.
