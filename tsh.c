@@ -180,7 +180,7 @@ void eval(char *cmdline)
 	if(!builtin_cmd(argv)) {
 		if(fork() == 0){
 			if(execvp(argv[0], argv) < 0) {
-				printf("Command not found\n");
+				printf("%s: Command not found\n", argv[0]);
 				exit(0);
 			}
 		}
