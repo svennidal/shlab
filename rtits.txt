@@ -1,12 +1,565 @@
-./sdriver.pl -t trace10.txt -s ./tshref -a "-p"
+./sdriver.pl -t trace11.txt -s ./tshref -a "-p"
 #
-# trace10.txt - Process fg builtin command. 
+# trace11.txt - Forward SIGINT to every process in foreground process group
 #
-tsh> ./myspin 4 &
-[1] (26634) ./myspin 4 &
-tsh> fg %1
-Job [1] (26634) stopped by signal 20
-tsh> jobs
-[1] (26634) Stopped ./myspin 4 &
-tsh> fg %1
-tsh> jobs
+tsh> ./mysplit 4
+Job [1] (22842) terminated by signal 2
+tsh> /bin/ps a
+  PID TTY      STAT   TIME COMMAND
+  375 pts/132  Ss+    0:00 -zsh
+  397 pts/120  Ss+    0:00 -zsh
+  418 pts/256  S+     0:00 vim tsh.c
+  432 pts/258  Ss+    0:00 -zsh
+  626 pts/229  S+     0:00 vim tsh.c
+  661 pts/135  S+     0:00 vim tsh.c
+  791 tty1     Ss+    0:00 /sbin/agetty --noclear tty1
+  923 pts/260  Ss     0:00 -zsh
+  962 pts/9    Ss+    0:00 -zsh
+  968 pts/231  Ss+    0:00 -zsh
+ 1063 pts/196  Ss+    0:00 -zsh
+ 1083 pts/74   S+     0:00 ./tsh
+ 1194 pts/269  T      0:00 make test06
+ 1196 pts/269  T      0:00 /usr/bin/perl ./sdriver.pl -t trace06.txt -s ./tsh -a -p
+ 1200 pts/269  S      0:00 ./tsh -p
+ 1204 pts/269  Z      0:00 [echo] <defunct>
+ 1354 pts/56   Ss     0:00 -zsh
+ 1505 pts/102  Ts     0:00 -zsh
+ 1518 pts/79   Ss+    0:00 -zsh
+ 1699 pts/232  Ss     0:00 -zsh
+ 1711 pts/74   T+     0:00 /bin/sleep 10
+ 1750 pts/56   S+     0:00 gdb bufbomb
+ 1772 pts/186  Ss     0:00 /bin/zsh
+ 1938 pts/92   Ss     0:00 -zsh
+ 1983 pts/24   S+     0:00 gdb bufbomb
+ 2007 pts/226  Ss     0:00 -zsh
+ 2083 pts/17   Ss+    0:00 -zsh
+ 2098 pts/169  Ss+    0:01 -zsh
+ 2195 pts/164  Ss     0:00 -zsh
+ 2267 pts/235  Ss+    0:00 -zsh
+ 2274 pts/269  T      0:00 make test06
+ 2278 pts/269  T      0:00 /usr/bin/perl ./sdriver.pl -t trace06.txt -s ./tsh -a -p
+ 2284 pts/269  S      0:00 ./tsh -p
+ 2360 pts/115  Ss+    0:01 -zsh
+ 2377 pts/234  Ss+    0:00 -zsh
+ 2570 pts/226  S      0:00 ./tsh -p
+ 2580 pts/226  T      0:00 ./myspin 5
+ 2729 pts/175  Ss     0:00 -zsh
+ 2788 pts/259  Ss     0:00 -zsh
+ 2825 pts/118  S+     0:01 vim tsh.c
+ 2827 pts/149  Ss+    0:01 -zsh
+ 2950 pts/11   S+     0:01 vim tsh.c
+ 3131 pts/221  Ss     0:00 -zsh
+ 3383 pts/161  Ss+    0:00 -zsh
+ 3390 pts/176  S+     0:12 vim tsh.c
+ 3615 pts/259  S+     0:00 ./tsh
+ 3619 pts/46   Ss+    0:00 -zsh
+ 3724 pts/62   Ss     0:00 /bin/zsh
+ 3730 pts/29   Ss+    0:00 -zsh
+ 3822 pts/89   Ss+    0:00 -zsh
+ 3856 pts/91   Ss+    0:00 -zsh
+ 3955 pts/96   Ss+    0:01 -zsh
+ 3957 pts/102  T      0:00 make test10
+ 3961 pts/102  T      0:00 /usr/bin/perl ./sdriver.pl -t trace10.txt -s ./tsh -a -p
+ 3966 pts/102  T      0:14 ./tsh -p
+ 3972 pts/102  T      0:00 ./myspin 4
+ 4044 pts/182  T      0:00 make test08
+ 4045 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+ 4046 pts/182  Z      0:00 [tsh] <defunct>
+ 4052 pts/186  S+     0:00 tmux
+ 4055 pts/194  Ss+    0:00 -zsh
+ 4065 pts/204  Ss+    0:00 -zsh
+ 4148 pts/67   Ss+    0:00 -zsh
+ 4174 pts/64   Ss     0:00 -zsh
+ 4236 pts/76   Ss     0:00 -zsh
+ 4332 pts/220  Ss     0:00 -zsh
+ 4461 pts/1    S+     0:04 vim .
+ 4510 pts/212  S+     0:00 git pull
+ 4513 pts/212  S+     0:00 /bin/sh /usr/libexec/git-core/git-pull
+ 4562 pts/212  S+     0:00 git fetch --update-head-ok
+ 4564 pts/212  S+     0:00 git-remote-https origin https://gunnark13@bitbucket.org/jfjonsson/shlab-sty1.git
+ 4656 pts/102  T      0:00 make test10
+ 4658 pts/102  T      0:00 /usr/bin/perl ./sdriver.pl -t trace10.txt -s ./tsh -a -p
+ 4665 pts/102  T      0:11 ./tsh -p
+ 4674 pts/102  T      0:00 ./myspin 4
+ 4766 pts/101  Ss+    0:00 -zsh
+ 4781 pts/206  Ss     0:00 -zsh
+ 5064 pts/40   Ss+    0:00 -zsh
+ 5070 pts/193  Ss     0:00 -zsh
+ 5095 pts/137  Ss+    0:00 -zsh
+ 5101 pts/195  Ss     0:00 /bin/zsh
+ 5193 pts/182  T      0:00 make test08
+ 5194 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+ 5196 pts/182  Z      0:00 [tsh] <defunct>
+ 5241 pts/210  Ss     0:01 -zsh
+ 5301 pts/102  T      0:00 make test10
+ 5303 pts/102  T      0:00 /usr/bin/perl ./sdriver.pl -t trace10.txt -s ./tsh -a -p
+ 5307 pts/102  T      0:07 ./tsh -p
+ 5313 pts/102  T      0:00 ./myspin 4
+ 5424 pts/90   S+     0:00 vim exploitlvl5.txt
+ 5452 pts/131  Ss+    0:00 -zsh
+ 5482 pts/211  Ss+    0:00 -zsh
+ 5575 pts/102  T      0:00 make test10
+ 5578 pts/102  T      0:00 /usr/bin/perl ./sdriver.pl -t trace10.txt -s ./tsh -a -p
+ 5583 pts/102  T      0:06 ./tsh -p
+ 5593 pts/102  T      0:00 ./myspin 4
+ 5653 pts/171  Ss+    0:00 -zsh
+ 5784 pts/108  S+     0:00 nano tsh.c
+ 5877 pts/66   Ss+    0:00 -zsh
+ 5920 pts/144  Ss+    0:02 -zsh
+ 5994 pts/72   Ss+    0:00 -zsh
+ 6123 pts/154  Ss     0:00 -zsh
+ 6185 pts/182  T      0:00 make test08
+ 6186 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+ 6187 pts/182  Z      0:00 [tsh] <defunct>
+ 6217 pts/212  Ss     0:01 -zsh
+ 6300 pts/224  S+     0:00 nano tsh.c
+ 6401 pts/195  S+    49:06 htop
+ 6407 pts/102  T+     0:00 make test10
+ 6408 pts/102  T+     0:00 /usr/bin/perl ./sdriver.pl -t trace10.txt -s ./tsh -a -p
+ 6411 pts/102  T+     0:00 ./tsh -p
+ 6416 pts/102  T      0:00 ./myspin 4
+ 6441 pts/158  Ss+    0:00 -zsh
+ 6468 pts/156  S+     0:00 gdb bufbomb
+ 6521 pts/237  Ss     0:00 -zsh
+ 6572 pts/238  S+     0:00 ./tsh
+ 6685 pts/103  Ss+    0:00 -zsh
+ 6915 pts/110  S+     0:00 nano tsh.c
+ 6948 pts/85   Ss     0:00 -zsh
+ 7251 pts/200  T      0:00 vim
+ 7254 pts/224  Ss     0:00 -zsh
+ 7268 pts/175  S+     0:00 vim tsh.c
+ 7299 pts/63   Ss+    0:00 -zsh
+ 7313 pts/215  S+     0:01 vim grade_problem4.sh
+ 7439 pts/187  Ss+    0:00 -zsh
+ 7465 pts/225  S+     0:00 vim tsh.c
+ 7479 pts/200  T      0:00 vim jbla
+ 7560 pts/168  Ss+    0:00 -zsh
+ 7611 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p -v
+ 7612 pts/182  Z      0:00 [tsh] <defunct>
+ 7620 pts/105  Ss+    0:00 -zsh
+ 7641 pts/269  T      0:00 make test06
+ 7642 pts/269  T      0:00 /usr/bin/perl ./sdriver.pl -t trace06.txt -s ./tsh -a -p
+ 7644 pts/269  S      0:00 ./tsh -p
+ 7771 pts/154  S+     0:01 vim tsh.c
+ 7826 pts/229  Ss     0:00 -zsh
+ 7927 pts/149  S      0:00 ./tsh -p
+ 7943 pts/218  Ss+    0:00 -zsh
+ 7985 pts/52   Ss     0:00 -zsh
+ 8004 pts/182  Ss+    0:01 -zsh
+ 8234 pts/206  S+     0:51 vim tsh.c
+ 8250 pts/269  T      0:00 make test06
+ 8251 pts/269  T      0:01 /usr/bin/perl ./sdriver.pl -t trace06.txt -s ./tsh -a -p
+ 8252 pts/269  S      0:00 ./tsh -p
+ 8349 pts/182  T      0:00 make test08
+ 8352 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+ 8357 pts/182  S      0:00 ./tsh -p
+ 8408 pts/57   Ss     0:00 -zsh
+ 8428 pts/237  S      0:00 ./tsh -p
+ 8436 pts/237  T      0:00 ./myspin 5
+ 8513 pts/64   S+     0:00 ./tsh
+ 8560 pts/210  S+     0:01 vim tsh.c
+ 8615 pts/94   Ss     0:00 /bin/zsh
+ 8657 pts/107  Ss+    0:06 /bin/zsh
+ 8804 pts/5    S+     0:00 man waitpid
+ 8822 pts/5    S+     0:00 less
+ 8946 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p -v
+ 8973 pts/182  Z      0:00 [tsh] <defunct>
+ 9028 pts/208  S+     0:00 vim tsh.c
+ 9057 pts/36   Ss     0:00 -zsh
+ 9069 pts/78   Ss     0:01 -zsh
+ 9087 pts/140  Ss     0:00 -zsh
+ 9117 pts/237  S      0:00 ./tsh -p
+ 9132 pts/237  T      0:00 ./myspin 5
+ 9257 pts/2    Ss     0:00 -zsh
+ 9295 pts/74   Ss     0:00 -zsh
+ 9391 pts/226  S      0:00 ./tsh -p
+ 9401 pts/226  T      0:00 ./myspin 5
+ 9507 pts/2    S+     0:00 ./tsh
+ 9569 pts/238  Ss     0:00 -zsh
+ 9631 pts/113  Ss     0:01 -zsh
+ 9702 pts/191  S+     0:01 nano tsh.c
+ 9831 pts/36   S+     0:00 vim tsh.c
+ 9865 pts/219  Ss     0:00 -zsh
+10095 pts/269  T      0:00 make test06
+10097 pts/269  T      0:00 /usr/bin/perl ./sdriver.pl -t trace06.txt -s ./tsh -a -p
+10103 pts/269  S      0:00 ./tsh -p
+10132 pts/226  S      0:00 ./tsh -p
+10140 pts/226  T      0:00 ./myspin 5
+10143 pts/80   Ss     0:00 -zsh
+10180 pts/81   Ss+    0:00 -zsh
+10240 pts/245  Ss     0:00 -zsh
+10314 pts/200  S+     0:00 man bg
+10346 pts/200  S+     0:00 less
+10397 pts/153  Ss+    0:00 -zsh
+10530 pts/98   Ss+    0:00 -zsh
+10564 pts/112  Ss+    0:01 -zsh
+10667 pts/226  S      0:00 ./tsh -p
+10675 pts/226  T      0:00 ./myspin 5
+10775 pts/37   Ss     0:00 -zsh
+10799 pts/136  S+     0:01 vim tsh.c
+10966 pts/4    S+     0:00 vim tsh.c
+11219 pts/227  Ts     0:00 -zsh
+11313 pts/14   Ss+    0:01 -zsh
+11319 pts/92   S+     0:00 vim answer3.3.txt
+11371 pts/19   Ss+    0:00 -zsh
+11560 pts/183  Ss+    0:00 -zsh
+11578 pts/151  t      0:00 /home/hir.is/tomasn13/buflab-handout/bufbomb getbuf -u tomasn13
+11589 pts/182  T      0:00 ./myspin 5
+11626 pts/237  S      0:00 ./tsh -p
+11633 pts/237  T      0:00 ./myspin 5
+11684 pts/233  Ss+    0:00 -zsh
+11689 pts/42   Ss+    0:01 -zsh
+11784 pts/164  S+     0:00 nano tsh.c
+11793 pts/227  T+     0:00 make test10
+11794 pts/227  T+     0:00 /usr/bin/perl ./sdriver.pl -t trace10.txt -s ./tsh -a -p
+11796 pts/227  S+     0:00 ./tsh -p
+11798 pts/227  T      0:00 ./myspin 4
+11973 pts/31   Ss+    0:00 -zsh
+12009 pts/34   Ss+    0:00 -zsh
+12076 pts/243  Ss+    0:00 -zsh
+12113 pts/136  Ss     0:00 -zsh
+12222 pts/86   Ss+    0:00 -zsh
+12223 pts/76   S+     0:00 man waitpid
+12240 pts/76   S+     0:00 less
+12270 pts/13   S+     0:01 gdb bufbomb
+12341 pts/260  S      0:00 ./tsh -p
+12343 pts/260  Z      0:00 [echo] <defunct>
+12355 pts/70   Ss+    0:00 -zsh
+12475 pts/205  Ss+    0:00 -zsh
+12505 pts/13   t      0:00 /home/hir.is/hogni10/buflab/buflab-handout/bufbomb -u hogni10
+12524 pts/80   S+     0:00 gdb bufbomb
+12563 pts/88   S+     0:00 gdb bufbomb
+12595 pts/182  T      0:00 make test07
+12596 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace07.txt -s ./tsh -a -p
+12597 pts/182  Z      0:00 [tsh] <defunct>
+12694 pts/214  TN     0:00 ./tsh ./myspin 4
+12719 pts/232  S+     0:02 vim tsh.c
+12814 pts/182  T      0:00 make test08
+12815 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+12816 pts/182  Z      0:00 [tsh] <defunct>
+12868 pts/71   S      0:00 ./myspin 100000000
+12936 pts/37   t      0:00 /home/hir.is/hogni10/buflab/buflab-handout/bufbomb -u hogni10
+12939 pts/219  S+     0:00 gdb bufbomb
+13039 pts/15   Ss     0:00 -zsh
+13055 pts/10   Ss     0:00 -zsh
+13086 pts/6    Ss     0:00 -zsh
+13142 pts/199  Ss     0:00 -zsh
+13322 pts/148  S+     0:00 vim sploit
+13323 pts/88   t      0:00 /home/hir.is/hogni10/buflab/buflab-handout/bufbomb -b -u hogni10
+13391 pts/68   S+     0:00 vim test4.txt
+13784 pts/246  Ss+    0:00 -zsh
+13792 pts/220  S+     0:00 vim
+13847 pts/5    Ss     0:00 -zsh
+13938 pts/87   Ss+    0:00 -zsh
+14016 pts/182  T      0:00 make test08
+14017 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+14018 pts/182  Z      0:00 [tsh] <defunct>
+14029 pts/58   Ss     0:00 -zsh
+14030 pts/113  S+     0:00 vim mystop.c
+14052 pts/20   Ss+    0:00 -zsh
+14073 pts/239  Ss     0:00 -zsh
+14136 pts/240  Ss+    0:00 -zsh
+14214 pts/182  T      0:00 make test08
+14216 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+14239 pts/182  Z      0:00 [tsh] <defunct>
+14250 pts/193  S+     0:00 tmux
+14257 pts/134  Ss+    0:00 -zsh
+14416 pts/200  Ss     0:00 -zsh
+14542 pts/203  Ss+    0:00 -zsh
+14555 pts/22   Ss+    0:00 -zsh
+14566 pts/244  S      0:00 ./tsh -p
+14573 pts/244  T      0:00 ./myspin 5
+14588 pts/182  T      0:00 make test08
+14589 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+14590 pts/182  Z      0:00 [tsh] <defunct>
+14615 pts/182  T      0:00 make test08
+14616 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+14617 pts/182  Z      0:00 [tsh] <defunct>
+14792 pts/208  Ss     0:00 -zsh
+14962 pts/71   Ss     0:00 -zsh
+14991 pts/269  S+     0:00 make test06
+14993 pts/269  S+     0:00 /usr/bin/perl ./sdriver.pl -t trace06.txt -s ./tsh -a -p
+14998 pts/269  S+     0:00 ./tsh -p
+15001 pts/269  Z      0:00 [echo] <defunct>
+15093 pts/182  T      0:00 make test08
+15100 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+15121 pts/244  Ss     0:00 -zsh
+15127 pts/182  Z      0:00 [tsh] <defunct>
+15155 pts/25   Ss+    0:00 -zsh
+15219 pts/185  Ss+    0:00 -zsh
+15235 pts/249  Ss+    0:00 -zsh
+15240 pts/242  Ss+    0:00 -zsh
+15581 pts/12   Ss+    0:00 -zsh
+15582 pts/45   S+     0:00 screen -r shlab
+15704 pts/8    Ss+    0:00 -zsh
+15786 pts/147  Ss+    0:00 -zsh
+15801 pts/156  t      0:00 /home/hir.is/tomasn13/buflab-handout/bufbomb -u tomasn13
+15902 pts/26   Ss+    0:00 -zsh
+15919 pts/16   Ss+    0:00 -zsh
+15939 pts/221  S+     0:00 ./tsh
+15966 pts/49   Ss+    0:00 -zsh
+15999 pts/55   Ss+    0:00 -zsh
+16009 pts/192  Ss     0:00 -zsh
+16020 pts/258  S      0:00 ./myspin 500
+16119 pts/258  S      0:00 ./myspin 500
+16120 pts/71   R     16:12 ./tsh -p
+16203 pts/221  T+     0:00 ./myspin 60
+16262 pts/214  Ss+    0:00 -zsh
+16263 pts/255  S+     0:00 ./tsh
+16321 pts/28   Ss+    0:00 -zsh
+16721 pts/52   T      0:00 make test05
+16723 pts/52   T      0:00 /usr/bin/perl ./sdriver.pl -t trace05.txt -s ./tsh -a -p
+16726 pts/52   Z      0:00 [tsh] <defunct>
+16799 pts/176  Ss     0:00 -zsh
+16844 pts/192  S+     5:26 htop
+16879 pts/111  Ss+    0:00 -zsh
+17063 pts/75   Ss+    0:00 -zsh
+17181 pts/32   S      0:00 ./tsh -p
+17186 pts/32   Z      0:00 [myspin] <defunct>
+17189 pts/32   T      0:00 ./myspin 5
+17286 pts/127  Ss+    0:00 -zsh
+17360 pts/37   S+     0:00 gdb -quiet bufbomb
+17460 pts/260  S+     0:00 nano tsh.c
+17472 pts/24   Ss     0:00 -zsh
+17527 pts/143  Ss     0:00 /bin/zsh
+17547 pts/117  Ss     0:00 /bin/zsh
+17580 pts/247  Ss     0:00 -zsh
+17587 pts/117  S+     0:00 tmux
+17590 pts/148  Ss     0:00 -zsh
+17596 pts/43   Ss+    0:00 -zsh
+17637 pts/61   Ss+    0:00 /bin/zsh
+17686 pts/248  Ss+    0:00 -zsh
+17776 pts/146  S+     0:00 gdb bufbomb
+18169 pts/167  S+     0:01 vim tsh.c
+18172 pts/71   R     15:57 ./tsh -p
+18259 pts/65   Ss+    0:00 -zsh
+18341 pts/250  Ss     0:00 -zsh
+18416 pts/216  Ss     0:00 -zsh
+18417 pts/228  S+     0:00 man waitpid
+18454 pts/228  S+     0:00 less
+18490 pts/172  Ss+    0:00 -zsh
+18500 pts/143  S+     0:13 vim tsh.c
+18503 pts/251  Ss     0:00 -zsh
+18533 pts/155  Ss+    0:00 -zsh
+18702 pts/182  T      0:00 make test08
+18704 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+18705 pts/182  Z      0:00 [tsh] <defunct>
+18731 pts/151  S+     0:00 gdb bufbomb
+18752 pts/108  Ss     0:00 -zsh
+18787 pts/84   S+     0:00 vim tsh.c
+18801 pts/50   Ss+    0:00 /bin/zsh
+19033 pts/225  Ss     0:00 -zsh
+19110 pts/252  Ss+    0:00 -zsh
+19151 pts/123  Ss+    0:00 -zsh
+19301 pts/140  S+     0:00 ./tsh
+19349 pts/251  S+     0:02 emacs tsh.c
+19471 pts/244  S      0:00 ./tsh -p
+19483 pts/244  T      0:00 ./myspin 5
+19527 pts/85   S+     0:00 vim tsh.c
+19628 pts/139  Ss+    0:01 -zsh
+19661 pts/48   Ss     0:00 -zsh
+19677 pts/110  Ss     0:00 -zsh
+19730 pts/189  Ss     0:00 -zsh
+19744 pts/32   T      0:00 make test08
+19745 pts/32   T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+19746 pts/32   Z      0:00 [tsh] <defunct>
+19817 pts/223  Ss+    0:00 -zsh
+19830 pts/269  T      0:00 make test06
+19831 pts/269  T      0:00 /usr/bin/perl ./sdriver.pl -t trace06.txt -s ./tsh -a -p
+19832 pts/269  S      0:00 ./tsh -p
+19840 pts/1    Ss     0:00 -zsh
+19877 pts/226  S+     0:00 ./tsh
+19912 pts/198  Ss+    0:01 -zsh
+19961 pts/159  Ss+    0:00 -zsh
+20093 pts/104  Ss     0:00 -zsh
+20180 pts/124  Ss+    0:01 -zsh
+20242 pts/226  T      0:00 ./myspin 4
+20264 pts/160  Ss     0:00 -zsh
+20339 pts/247  S+     0:00 vim tsh.c
+20415 pts/182  T      0:00 make test07
+20416 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace07.txt -s ./tsh -a -p
+20417 pts/182  Z      0:00 [tsh] <defunct>
+20514 pts/179  Ss     0:00 -zsh
+20776 pts/226  S      0:00 ./tsh -p
+20783 pts/226  T      0:00 ./myspin 5
+20799 pts/189  S+     8:28 htop
+20803 pts/116  S+     0:00 /usr/bin/perl ./sdriver.pl -t trace03.txt -s ./tsh -a -p
+20806 pts/116  R+     0:18 ./tsh -p
+20812 pts/116  Z+     0:00 [echo] <defunct>
+20882 pts/244  S+     0:00 ./tsh
+20973 pts/97   Ss+    0:00 -zsh
+21028 pts/142  Ss+    0:00 -zsh
+21093 pts/146  Ss     0:00 -zsh
+21166 pts/254  Ss     0:00 -zsh
+21183 pts/51   S+     0:00 vim tsh.c
+21288 pts/82   S+     0:00 ./tsh
+21373 pts/202  Ss+    0:00 -zsh
+21418 pts/78   S+     0:00 vim tsh.c
+21424 pts/71   S+     0:00 ./tsh
+21463 pts/32   S      0:00 ./tsh -p
+21470 pts/253  Ss+    0:00 -zsh
+21478 pts/32   T      0:00 ./myspin 5
+21511 pts/68   Ss     0:00 -zsh
+21660 pts/71   R     15:33 ./tsh -p
+21667 pts/27   Ss+    0:00 -zsh
+21683 pts/88   Ss     0:00 -zsh
+21728 pts/90   Ss     0:00 -zsh
+21894 pts/48   S+     0:00 ./tsh
+21936 pts/11   Ss     0:00 -zsh
+21977 pts/237  S+     0:00 vim tsh.c
+21979 pts/217  S+     0:00 man find
+21997 pts/217  S+     0:00 less
+22038 pts/48   T      0:00 ./myspin 4
+22152 pts/255  Ss     0:00 -zsh
+22196 pts/82   Ss     0:00 -zsh
+22254 pts/174  Ss     0:00 -zsh
+22276 pts/4    Ss     0:00 -zsh
+22298 pts/273  Ss     0:00 -zsh
+22334 pts/205  S      0:00 ./tsh -p
+22425 pts/241  S+     0:13 nano tsh.c
+22554 pts/273  S+     0:00 man waitpid
+22586 pts/273  S+     0:00 less
+22657 pts/82   T      0:00 ./myspin 20
+22784 pts/5    S      0:00 ./tsh -p
+22819 pts/222  S+     0:00 /bin/bash ./diff.sh 11
+22826 pts/222  S+     0:00 make rtest11
+22828 pts/222  S+     0:00 /usr/bin/perl ./sdriver.pl -t trace11.txt -s ./tshref -a -p
+22836 pts/222  S+     0:00 ./tshref -p
+22915 pts/222  R      0:00 /bin/ps a
+22928 pts/30   Ss     0:00 -zsh
+22997 pts/58   S+     0:04 vim tsh.c
+23003 pts/181  Ss+    0:00 /bin/zsh
+23006 pts/52   T      0:00 make test05
+23011 pts/52   T      0:00 /usr/bin/perl ./sdriver.pl -t trace05.txt -s ./tsh -a -p
+23015 pts/52   Z      0:00 [tsh] <defunct>
+23122 pts/228  Ss     0:00 -zsh
+23265 pts/178  Ss+    0:01 -zsh
+23471 pts/241  Ss     0:00 -zsh
+23518 pts/113  TN     0:00 vim
+23555 pts/57   S+     0:00 vim dump
+23587 pts/18   Ss+    0:00 -zsh
+23754 pts/245  S+     0:00 vim ../README.md
+23759 pts/135  Ss     0:00 -zsh
+23832 pts/73   S+     0:18 gdb bufbomb
+23847 pts/114  Ss     0:00 -zsh
+23961 pts/114  S+     0:26 htop
+24062 pts/165  Ss+    0:00 -zsh
+24081 pts/157  S+     0:00 tmux
+24093 pts/222  Ss     0:03 -zsh
+24262 pts/140  S      0:00 ./tsh -p
+24266 pts/140  Z      0:00 [echo] <defunct>
+24327 pts/257  Ss     0:02 -zsh
+24335 pts/269  T      0:00 make test06
+24341 pts/269  T      0:00 /usr/bin/perl ./sdriver.pl -t trace06.txt -s ./tsh -a -p
+24347 pts/269  S      0:00 ./tsh -p
+24473 pts/179  S+     0:00 gdb bufbomb
+24539 pts/121  Ss+    0:00 -zsh
+24646 pts/109  Ss+    0:00 -zsh
+24663 pts/62   S+     0:00 vim tsh.c
+24692 pts/94   S+     0:01 gdb bufbomb
+24731 pts/73   t      0:00 /home/hir.is/bjarnil10/styrikerfi/buflab-handout/bufbomb -u bjarnil10
+24783 pts/12   T      0:00 make test07
+24785 pts/12   T      0:00 /usr/bin/perl ./sdriver.pl -t trace07.txt -s ./tsh -a -p
+24792 pts/12   S      0:00 ./tsh -p
+24864 pts/216  S+     0:02 vim tsh.c
+25013 pts/106  Ss+    0:00 /bin/zsh
+25233 pts/12   T      0:00 ./myspin 5
+25254 pts/95   S+     0:02 vim tsh.c
+25262 pts/191  Ss     0:00 -zsh
+25373 pts/100  Ss+    0:00 -zsh
+25386 pts/13   Ss     0:00 -zsh
+25412 pts/151  Ss     0:00 -zsh
+25422 pts/162  Ss+    0:00 -zsh
+25442 pts/182  T      0:00 make test08
+25443 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+25445 pts/182  Z      0:00 [tsh] <defunct>
+25448 pts/44   Ss+    0:00 -zsh
+25598 pts/10   S+     0:00 ./tsh
+25631 pts/254  T      0:00 git diff freyr master
+25633 pts/254  T      0:00 less
+26218 pts/250  S+     0:17 vim tsh.c
+26311 pts/59   S+     0:00 ./tsh
+26375 pts/33   Ss+    0:01 -zsh
+26438 pts/237  S      0:00 ./tsh -p
+26452 pts/237  T      0:00 ./myspin 5
+26474 pts/205  S      0:00 ./tsh -p
+26683 pts/128  Ss+    0:00 -zsh
+26704 pts/130  Ss+    0:00 -zsh
+26707 pts/99   Ss     0:00 -zsh
+26836 pts/6    S+     0:00 vim tsh.c
+26873 pts/239  S+     0:00 vim tsh.c
+26947 pts/35   Ss+    0:01 -zsh
+26965 pts/138  Ss+    0:00 -zsh
+27595 pts/73   Ss     0:00 -zsh
+27666 pts/160  S+     0:00 ./tsh
+27708 pts/167  Ss     0:00 -zsh
+28045 pts/160  T+     0:00 /bin/sleep 10
+28052 pts/59   Ss     0:00 -zsh
+28080 pts/119  Ss+    0:01 -zsh
+28416 pts/197  Ss+    0:00 -zsh
+28635 pts/30   S+     0:00 ./tsh
+28642 pts/39   Ss+    0:00 -zsh
+28763 pts/84   Ss     0:00 -zsh
+28803 pts/99   S+     0:01 vim tsh.c
+28809 pts/104  S+     0:00 vim myspin.c
+28891 pts/52   S+     0:00 make test05
+28893 pts/52   S+     0:00 /usr/bin/perl ./sdriver.pl -t trace05.txt -s ./tsh -a -p
+28900 pts/52   S+     0:00 ./tsh -p
+28902 pts/52   Z+     0:00 [echo] <defunct>
+29000 pts/215  Ss     0:00 -zsh
+29012 pts/141  Ss+    0:00 -zsh
+29044 pts/157  Ss     0:00 /bin/zsh
+29233 pts/5    S      0:00 ./tsh -p
+29330 pts/207  Ss     0:00 -zsh
+29442 pts/170  Ss+    0:00 -zsh
+29471 pts/199  S+     0:00 vim tsh.c
+30005 pts/182  T      0:00 make test08
+30008 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p
+30029 pts/182  Z      0:00 [tsh] <defunct>
+30096 pts/5    S      0:00 ./tsh -p
+30330 pts/118  Ss     0:00 -zsh
+30357 pts/15   S+     0:00 make test11
+30361 pts/15   S+     0:00 /usr/bin/perl ./sdriver.pl -t trace11.txt -s ./tsh -a -p
+30362 pts/207  S+     0:01 vim tsh.c
+30368 pts/15   R+     6:41 ./tsh -p
+30372 pts/15   Z+     0:00 [echo] <defunct>
+30410 pts/269  T      0:00 make test06
+30412 pts/269  T      0:00 /usr/bin/perl ./sdriver.pl -t trace06.txt -s ./tsh -a -p
+30420 pts/269  S      0:00 ./tsh -p
+30452 pts/230  Ss+    0:00 -zsh
+30473 pts/129  Ss+    0:00 -zsh
+30502 pts/182  T      0:00 make test07
+30503 pts/51   Ss     0:00 -zsh
+30504 pts/182  T      0:00 /usr/bin/perl ./sdriver.pl -t trace07.txt -s ./tsh -a -p
+30507 pts/182  Z      0:00 [tsh] <defunct>
+30559 pts/126  Ss+    0:00 -zsh
+30577 pts/47   Ss+    0:02 -zsh
+30664 pts/156  Ss     0:00 -zsh
+30682 pts/12   T      0:00 /usr/bin/perl ./sdriver.pl -t trace08.txt -s ./tsh -a -p -v
+30690 pts/12   Z      0:00 [tsh] <defunct>
+30843 pts/95   Ss     0:00 -zsh
+30885 pts/145  Ss+    0:00 -zsh
+30926 pts/152  Ss+    0:00 -zsh
+30994 pts/269  Ss     0:00 -zsh
+31020 pts/174  S+     0:00 gdb bufbomb
+31045 pts/0    Ss+    0:00 -zsh
+31091 pts/69   Ss+    0:01 -zsh
+31159 pts/163  Ss+    0:09 -zsh
+31234 pts/177  Ss+    0:02 -zsh
+31260 pts/217  Ss     0:00 -zsh
+31274 pts/32   S      0:00 ./tsh -p -v
+31280 pts/32   Z      0:00 [myspin] <defunct>
+31284 pts/32   T      0:00 ./myspin 5
+31398 pts/30   T      0:00 ./myspin 4
+31550 pts/45   Ss     0:00 -zsh
+31594 pts/24   t      0:00 /home/hir.is/hogni10/buflab/buflab-handout/bufbomb -u hogni10
+31622 pts/257  S+     3:15 htop -u sveinndb11
+32101 pts/116  Ss     0:00 -zsh
+32160 pts/254  S+     2:03 htop -u freyrg12
+32180 pts/173  Ss+    0:00 -zsh
+32252 pts/32   Ss+    0:00 -zsh
+32451 pts/256  Ss     0:00 -zsh
+32662 pts/140  S      0:00 ./tsh -p
+32665 pts/140  Z      0:00 [echo] <defunct>
+32731 pts/190  Ss+    0:00 -zsh
+32734 pts/188  Ss+    0:02 -zsh
