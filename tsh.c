@@ -319,7 +319,11 @@ void sigchld_handler(int sig)
 	while((pid = waitpid(-1, &status, WNOHANG)) > 0) {
 		job = getjobpid(jobs, pid);
 		if(WIFSIGNALED(status)) {
-			sigint_handler(2);
+			if(WTERMSIG(status) == 2){
+				//printf("DEBUG: calling sigint_handler(2)\n");
+				sigint_handler(2);
+				//printf("sigchld_handler: Job [%d] (%d) terminated by signal %d\n", job, pid, sig);
+			}
 		} else if(WIFEXITED(status)){
 			deletejob(jobs, pid);
 		}
@@ -334,16 +338,13 @@ void sigchld_handler(int sig)
  */
 void sigint_handler(int sig) 
 {
-	pid_t pid;
-	pid = fgpid(jobs);
+	//pid_t pid;
+	int pid = fgpid(jobs);
+	int jobid = pid2jid(pid);
 	if(pid != 0){ 
-		int jobid = pid2jid(pid);
 		kill(-pid, sig);
 		printf("Job [%d] (%d) terminated by signal %d\n", jobid, pid, sig);
-		/*
 		deletejob(jobs, pid);
-		listjobs(jobs);
-		*/
 	}
     return;
 }
