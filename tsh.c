@@ -324,6 +324,8 @@ void sigchld_handler(int sig)
 				sigint_handler(2);
 				//printf("sigchld_handler: Job [%d] (%d) terminated by signal %d\n", job, pid, sig);
 			}
+		} else if(WIFSTOPPED(status)){
+			sigtstp_handler(20);
 		} else if(WIFEXITED(status)){
 			deletejob(jobs, pid);
 		}
@@ -356,6 +358,13 @@ void sigint_handler(int sig)
  */
 void sigtstp_handler(int sig) 
 {
+	int pid = fgpid(jobs);
+	int jobid = pid2jid(pid);
+	if(pid != 0){ 
+		getjobpid(jobs, pid)->state = ST;
+		kill(-pid, sig);
+		printf("Job [%d] (%d) stopped by signal %d\n", jobid, pid, sig);
+	}
     return;
 }
 
