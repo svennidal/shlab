@@ -271,6 +271,7 @@ int builtin_cmd(char **argv)
 	} else if(strcmp("bg", argv[0]) == 0){
 		return 1;
 	} else if(strcmp("jobs", argv[0]) == 0){
+		listjobs(jobs);
 		return 1;
 	}
     return 0;     /* not a builtin command */
@@ -312,9 +313,11 @@ void sigchld_handler(int sig)
 	pid_t pid;
 	int status;
 	// unused for now
-	//struct job_t *job;
+	struct job_t *job;
+
+
 	while((pid = waitpid(-1, &status, WNOHANG)) > 0) {
-		// job = getjobpid(jobs, pid);
+		job = getjobpid(jobs, pid);
 		deletejob(jobs, pid);
 	}
     return;
@@ -327,6 +330,11 @@ void sigchld_handler(int sig)
  */
 void sigint_handler(int sig) 
 {
+	pid_t pid;
+	pid = fgpid(jobs);
+	if(pid != 0){ 
+		kill(-pid, SIGINT);
+	}
     return;
 }
 
