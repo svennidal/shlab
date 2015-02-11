@@ -266,10 +266,13 @@ int builtin_cmd(char **argv)
 {
 	if(strcmp("quit", argv[0]) == 0){
 		exit(0);
-	} else if(strcmp("fg", argv[0]) == 0){
+	} else if((strcmp("fg", argv[0]) == 0) || (strcmp("bg", argv[0]) == 0)){
+		do_bgfg(argv);
 		return 1;
+		/*
 	} else if(strcmp("bg", argv[0]) == 0){
 		return 1;
+		*/
 	} else if(strcmp("jobs", argv[0]) == 0){
 		listjobs(jobs);
 		return 1;
@@ -282,6 +285,44 @@ int builtin_cmd(char **argv)
  */
 void do_bgfg(char **argv) 
 {
+	struct job_t *job;
+	char *job_id = argv[1];
+	int jid;
+
+	if(job_id == NULL){
+		printf("need Process ID or Job ID for %s\n", argv[0]);
+		return;
+	}
+	if(job_id[0] == '%'){
+		jid = atoi(&job_id[1]);
+		if(!(job = getjobjid(jobs, jid))){
+			printf("no job with nr %s\n", job_id);
+			return;
+		}
+	} else if(isdigit(job_id[0])){
+		pid_t pid = atoi(jid);
+		if(!(job = getjobpid(jobs, pid))){
+			printf("no process with nr %d\n", pid);
+			return;
+		}
+	} else {
+		printf("argument %s has to be Process ID or Job ID\n", argv[0]);
+		return;
+	}
+	if(kill(-(job->pid), 18) < 0){
+		if(errno != ESRCH){
+			unix_error("KILL ERROR\n");
+		}
+	}
+	if(!strcmp("fg", argv[0])){
+		job->state = FG;
+		waitfg(job->pid);
+	} else if(!strcmp("bg", argv[0])){
+		printf("[%d] (%d) %s", job->jid, job->pid, job->cmdline);
+		job->state = BG;
+	} else {
+		printf("errrror with fg or bg for %s\n", argv[0]);
+	}
     return;
 }
 
