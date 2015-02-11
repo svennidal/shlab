@@ -175,17 +175,24 @@ int main(int argc, char **argv)
  */
 void eval(char *cmdline) 
 {
+	pid_t pid;
 	char *argv[MAXARGS];
 	int bg = parseline(cmdline, argv);
+	struct job_t *job;
 	if(!builtin_cmd(argv)) {
-		if(fork() == 0){
+		if((pid = fork()) == 0){
 			if(execvp(argv[0], argv) < 0) {
 				printf("%s: Command not found\n", argv[0]);
 				exit(0);
 			}
 		}
+		addjob(jobs, pid, bg ? BG : FG, cmdline);
 		if(!bg) {
-			wait(NULL);
+			waitfg(pid);
+		} else {
+			// print some shit out
+			job = getjobpid(jobs, pid);
+			printf("[%d] (%d) %s", job->jid, job->pid, cmdline);
 		}
 	}
     return;
@@ -282,6 +289,10 @@ void do_bgfg(char **argv)
  */
 void waitfg(pid_t pid)
 {
+	struct job_t *job = getjobpid(jobs, pid);
+	while(job->state == FG){
+		sleep(1);
+	}
     return;
 }
 
@@ -298,6 +309,14 @@ void waitfg(pid_t pid)
  */
 void sigchld_handler(int sig) 
 {
+	pid_t pid;
+	int status;
+	// unused for now
+	//struct job_t *job;
+	while((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+		// job = getjobpid(jobs, pid);
+		deletejob(jobs, pid);
+	}
     return;
 }
 
