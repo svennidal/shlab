@@ -1,0 +1,10 @@
+6
+Athugar nokkuð að það hafi komið signal
+ef að signalið er 2 að þá kallar hann á sigint_handler(2)
+Í sigint_handlernum geymi ég pid og jobid og athuga nokkuð að process sé ekki 
+örugglega barn, kalla svo á kill(-pid, og sig sem er 2), prenta svo út hvaða 
+process var að deyja, og eyði svo jobbinu með delete(jobs, pid)
+
+7
+Þurfti ekki að gera neitt til að fá nr 7 til að virka
+
