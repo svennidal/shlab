@@ -179,19 +179,38 @@ void eval(char *cmdline)
 	char *argv[MAXARGS];
 	int bg = parseline(cmdline, argv);
 	struct job_t *job;
+	sigset_t mask;
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGCHLD);
 	if(!builtin_cmd(argv)) {
+		// block SIGCHLD signal
+		sigprocmask(SIG_BLOCK, &mask, NULL);
+		// fork a process
 		if((pid = fork()) == 0){
+			// unblock she SIGCHLD signal
+			sigprocmask(SIG_UNBLOCK, &mask, NULL);
+			// process group the child process
+			setpgid(0, 0);
+			// if a command is not in the PATH
 			if(execvp(argv[0], argv) < 0) {
 				printf("%s: Command not found\n", argv[0]);
 				exit(0);
 			}
 		}
-		addjob(jobs, pid, bg ? BG : FG, cmdline);
 		if(!bg) {
+			// add the job to the job list
+			addjob(jobs, pid, bg ? BG : FG, cmdline);
+			// unblock she SIGCHLD signal
+			sigprocmask(SIG_UNBLOCK, &mask, NULL);
+			// if it's a forground process we wait until it's done
 			waitfg(pid);
 		} else {
-			// print some shit out
+			// add the job to the job list
+			addjob(jobs, pid, bg ? BG : FG, cmdline);
 			job = getjobpid(jobs, pid);
+			// unblock she SIGCHLD signal
+			sigprocmask(SIG_UNBLOCK, &mask, NULL);
+			// print out info on the background job
 			printf("[%d] (%d) %s", job->jid, job->pid, cmdline);
 		}
 	}
@@ -269,10 +288,6 @@ int builtin_cmd(char **argv)
 	} else if((strcmp("fg", argv[0]) == 0) || (strcmp("bg", argv[0]) == 0)){
 		do_bgfg(argv);
 		return 1;
-		/*
-	} else if(strcmp("bg", argv[0]) == 0){
-		return 1;
-		*/
 	} else if(strcmp("jobs", argv[0]) == 0){
 		listjobs(jobs);
 		return 1;
@@ -339,7 +354,7 @@ void waitfg(pid_t pid)
 }
 
 /*****************
- * Signal handlers
+ * Signal ha+ndlers
  *****************/
 
 /* 
