@@ -371,6 +371,10 @@ void sigchld_handler(int sig)
 			deletejob(jobs, pid);
 		}
 	}
+
+	if(pid == -1 && errno != ECHILD){
+		unix_error("waitpid error");
+	}
     return;
 }
 
