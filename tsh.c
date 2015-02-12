@@ -283,7 +283,9 @@ int parseline(const char *cmdline, char **argv)
  */
 int builtin_cmd(char **argv) 
 {
-	if(strcmp("quit", argv[0]) == 0){
+	if(argv[0] == NULL){
+		return 1;
+	} else if(strcmp("quit", argv[0]) == 0){
 		exit(0);
 	} else if((strcmp("fg", argv[0]) == 0) || (strcmp("bg", argv[0]) == 0)){
 		do_bgfg(argv);
@@ -311,13 +313,25 @@ void do_bgfg(char **argv)
 	if(job_id[0] == '%'){
 		jid = atoi(&job_id[1]);
 		if(!(job = getjobjid(jobs, jid))){
-			printf("no job with nr %s\n", job_id);
+			printf("no job with no %s\n", job_id);
 			return;
 		}
-	} else if(isdigit(job_id[0])){
-		pid_t pid = atoi(jid);
-		if(!(job = getjobpid(jobs, pid))){
+		/*
+	} else if(isdigit(job_id[1])){
+		jid = atoi(&job_id[1]);
+		int pid = atoi(jid);
+		if(getjobpid(jobs, pid) == NULL){
 			printf("no process with nr %d\n", pid);
+			return;
+		} else {
+			job = getjobpid(jobs, pid);
+		}
+		*/
+	} else if(isdigit(argv[1][0])){
+		pid_t pid = atoi(argv[1]);
+		job = getjobpid(jobs, pid);
+		if(job == NULL){
+			printf("no process with PID no %d\n", pid);
 			return;
 		}
 	} else {
@@ -338,7 +352,7 @@ void do_bgfg(char **argv)
 	} else {
 		printf("errrror with fg or bg for %s\n", argv[0]);
 	}
-    return;
+	return;
 }
 
 /* 
