@@ -303,17 +303,17 @@ int builtin_cmd(char **argv)
 void do_bgfg(char **argv) 
 {
 	struct job_t *job;
-	char *job_id = argv[1];
+	//char *job_id = argv[1];
 	int jid;
 
-	if(job_id == NULL){
+	if(argv[1] == NULL){
 		printf("need Process ID or Job ID for %s\n", argv[0]);
 		return;
 	}
-	if(job_id[0] == '%'){
-		jid = atoi(&job_id[1]);
+	if(argv[1][0] == '%'){
+		jid = atoi(&argv[1][1]);
 		if(!(job = getjobjid(jobs, jid))){
-			printf("no job with no %s\n", job_id);
+			printf("no job with no %s\n", argv[1]);
 			return;
 		}
 		/*
