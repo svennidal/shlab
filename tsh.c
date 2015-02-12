@@ -386,16 +386,28 @@ void sigchld_handler(int sig)
 	struct job_t *job;
 
 
-	while((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+	while((pid = waitpid(-1, &status, WNOHANG|WUNTRACED)) > 0) {
 		job = getjobpid(jobs, pid);
 		if(WIFSIGNALED(status)) {
-			if(WTERMSIG(status) == 2){
+			int sig = WTERMSIG(status);
+			if(sig == 2){
 				//printf("DEBUG: calling sigint_handler(2)\n");
+				//int pid = fgpid(jobs);
+				//int jobid = pid2jid(pid);
+				//printf("Job [%d] (%d) terminated by signal %d\n", jobid, pid, sig);
+				int pid = fgpid(jobs);
+				int jobid = pid2jid(pid);
 				sigint_handler(2);
+				printf("Job [%d] (%d) terminated by signal %d\n", jobid, pid, sig);
+				deletejob(jobs, pid);
 				//printf("sigchld_handler: Job [%d] (%d) terminated by signal %d\n", job, pid, sig);
 			}
 		} else if(WIFSTOPPED(status)){
+			int pid = fgpid(jobs);
+			int jobid = pid2jid(pid);
 			sigtstp_handler(20);
+			printf("Job [%d] (%d) stopped by signal %d\n", jobid, pid, 20);
+			getjobpid(jobs, pid)->state = ST;
 		} else if(WIFEXITED(status)){
 			deletejob(jobs, pid);
 		}
@@ -416,11 +428,9 @@ void sigint_handler(int sig)
 {
 	//pid_t pid;
 	int pid = fgpid(jobs);
-	int jobid = pid2jid(pid);
+	//int jobid = pid2jid(pid);
 	if(pid != 0){ 
 		kill(-pid, sig);
-		printf("Job [%d] (%d) terminated by signal %d\n", jobid, pid, sig);
-		deletejob(jobs, pid);
 	}
     return;
 }
@@ -433,11 +443,9 @@ void sigint_handler(int sig)
 void sigtstp_handler(int sig) 
 {
 	int pid = fgpid(jobs);
-	int jobid = pid2jid(pid);
+	//int jobid = pid2jid(pid);
 	if(pid != 0){ 
-		getjobpid(jobs, pid)->state = ST;
 		kill(-pid, sig);
-		printf("Job [%d] (%d) stopped by signal %d\n", jobid, pid, sig);
 	}
     return;
 }
