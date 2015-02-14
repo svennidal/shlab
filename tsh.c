@@ -4,7 +4,7 @@
  * You __MUST__ add your user information here below
  * 
  * === User information ===
- * Group: NONE
+ * Group: Sleeve of Wizard
  * User 1: sveinndb11
  * SSN: 0704842189
  * User 2: 
